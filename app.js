@@ -1,44 +1,101 @@
+// Gameboard Vars
 const gameboard = document.querySelector(".board");
 const numbers = document.querySelector(".numbers");
 const letters = document.querySelector(".letters");
-
 let white = true;
 let letter = "ABCDEFGH";
 let row = 1;
 let col = 1;
 
+let row_col_starting = "00";
+
+// Go through and create the board on webpage load
 for ( let i = 1; i < 65; i++) {
+    // Create a square and add it to the square class
     let square = document.createElement("div");
     square.classList.add("square");
 
+    // Determine to color the square white or black
     if (!white) {
         square.classList.add("black");
+        square.classList.add("black_starting");
+    } else {
+        square.classList.add("white");
+        square.classList.add("white_starting");
     }
 
+    // Flip white variable after each square creation
     white = !white;
 
+    // If we're at the end of a row, flip the white var again
     if (i%8 === 0) {
         white = !white;
     }
 
     // Give square a row and column id
     square.setAttribute("id", row + "" + col);
-
     col += 1;
+
     if(col > 8) {
         row += 1;
         col = 1;
     }
 
+    // Add a listener for when the square is clicked on
     square.addEventListener("click", function(event) {
-        console.log(square.getAttribute("id"));
+        // Check if a square already belongs to the green class, if so, set the class to 
+        for (let i = 1; i <= 8; i++){
+            for (let j = 1; j <= 8; j++) {
+                var element = document.getElementById(i + "" + j);
+                if (element.classList.contains("green")) {
+                    // Remove the green class
+                    element.classList.remove("green");
+
+                    // Add previous color class to the square
+                    if (element.classList.contains("black_starting")){
+                        element.classList.add("black");
+                    } else {
+                        element.classList.add("white");
+                    }
+                }
+            }
+        }
+
+        // Make the clicked square green
+        if (event.target.classList.contains("black")) {
+            event.target.classList.remove("black");
+        } else {
+            event.target.classList.remove("white");
+        }
+
+        event.target.classList.add("green");
+
+        // Set the starting location var
+        row_col_starting = event.target.id;
+        console.log("Starting row and column: " + row_col_starting);
     });
 
+    // Add the square to the gameboard.
     gameboard.appendChild(square);
 }
 
-console.log(gameboard);
+// Add the numbers on the left side of the board
+for (i = 8; i>=1; i--) {
+    let numbersli = document.createElement("li");
+    numbersli.textContent = i;
+    numbers.appendChild(numbersli);
+}
 
+// Add the letters on the bottom of the board
+for (i = 1; i<=8; i++) {
+    let letterli = document.createElement("li");
+    letterli.textContent = letter[i-1];
+    letters.appendChild(letterli);
+}
+
+// console.log(gameboard);
+
+// Solution strings to the 8 Queens problem where n=8
 var solutions = [
     '15863724', '16837425', '17468253', '17582463', '24683175',
     '25713864', '25741863', '26174835', '26831475', '27368514',
@@ -61,6 +118,7 @@ var solutions = [
     '83162574', '84136275'
 ];
 
+// Helper function for random number
 function GetRandomInt(max) {
     return Math.floor(Math.random() * max);
 }
@@ -76,10 +134,10 @@ function find_solution(col, row) {
         }
     }
 
+    // Any solution from the list should work, just return a random solution.
     return possible_solutions[GetRandomInt(possible_solutions.length)]
 }
 
 
-
-console.log(solutions);
-console.log(find_solution(5, 3));
+// console.log(solutions);
+// console.log(find_solution(5, 3));
