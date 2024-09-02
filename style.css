@@ -104,3 +104,7 @@
     cursor: pointer;
     background-color: #04AA6D;
   }
+
+  button:hover {
+    background-color: #046843; /* change to your desired color */
+  }

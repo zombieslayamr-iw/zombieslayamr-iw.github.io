@@ -138,6 +138,46 @@ function find_solution(col, row) {
     return possible_solutions[GetRandomInt(possible_solutions.length)]
 }
 
+function set_solution() {
+    let solution_ids = [];
+
+    // Find a solution when "Solve!" is pressed only when the first queen is placed
+    if (row_col_starting != "00") {
+        // Get the element from row_col_starting
+        var starting_row = row_col_starting[0];
+        var starting_col = row_col_starting[1];
+    
+        // Now, find the solution using the starting row and column
+        var solution = find_solution(starting_row, starting_col);
+    
+        for (var i = 0; i < solution.length; i++) {
+            var element_id = i+1 + "" + solution[i];
+    
+            solution_ids.push(element_id);
+        }
+    
+        for (var i = 0; i < solution_ids.length; i++) {
+            var element = document.getElementById(solution_ids[i]);
+    
+            if (!element.classList.contains("green")) {
+                if (element.classList.contains("black_starting")){
+                    element.classList.remove("black");
+                } else {
+                    element.classList.remove("white");
+                }
+    
+                element.classList.add("green");
+            }
+        }
+    }
+}
+
+const button = document.getElementById("solve");
+
+button.addEventListener("click", function() {
+    set_solution();
+});
+
 
 // console.log(solutions);
 // console.log(find_solution(5, 3));
