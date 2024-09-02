@@ -149,12 +149,15 @@ function set_solution() {
     
         // Now, find the solution using the starting row and column
         var solution = find_solution(starting_row, starting_col);
+        console.log(solution);
     
         for (var i = 0; i < solution.length; i++) {
             var element_id = i+1 + "" + solution[i];
     
             solution_ids.push(element_id);
         }
+
+        console.log(solution_ids);
     
         for (var i = 0; i < solution_ids.length; i++) {
             var element = document.getElementById(solution_ids[i]);
