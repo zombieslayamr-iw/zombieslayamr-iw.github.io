@@ -8,12 +8,13 @@
     display: grid;
     grid-template-columns: repeat(8, 80px);
     position: absolute;
-    top: 50%;
+    top: 55%;
     left: 50%;
-    transform: translate(-50%, -40%);
+    transform: translate(-50%, -50%); /* Adjusted to center */
     width: 640px;
     height: 640px;
-    border:1px solid black;
+    border: 1px solid black;
+    position: fixed; /* Make the board the reference point for absolute positioning */
 }
 
 .square {
@@ -39,11 +40,16 @@
     flex-direction: row; 
     align-items: center; 
     justify-content: center;
+    position: fixed;
+    top: 18.5%; /* Adjust this percentage to move the queen text up or down */
+    left: 50%;
+    transform: translateX(-50%); /* Center horizontally */
 }
 
 .queen-text {
     font-family: fantasy;
-    font-size: x-large;
+    font-size:min(calc(12px + 0.75vw), 36px);
+    white-space: nowrap;
     margin-top: -2.0%;
 }
 
@@ -52,12 +58,15 @@
     flex-direction: row; 
     align-items: center; 
     justify-content: center;
-    margin-top: -2.5%;
+    position: absolute;
+    top: -3.5%; /* Adjust to position above the board */
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .iwz_logo_image {
-    width: 25%;
-    height: 25%;
+    width: 384px;
+    height: 216px;
 }
 
 .numbers {
@@ -98,21 +107,16 @@
     flex-direction: row; 
     align-items: center; 
     justify-content: center;
-    width: 640px;
+    width: 40%; /* Make the button the same width as the board */
     font-size: 16px;
-    margin: 4px 2px;
     cursor: pointer;
     background-color: #04AA6D;
-  }
+    position: absolute;
+    bottom: 0%; /* Adjust to position below the board */
+    left: 50%;
+    transform: translateX(-50%);
+}
 
-  .button_container {
-    display: flex;
-    flex-direction: row; 
-    align-items: center; 
-    justify-content: center;
-    margin-top: 37%;
-  }
-
-  button:hover {
-    background-color: #046843; /* change to your desired color */
-  }
+button:hover {
+    background-color: #046843; /* Change to your desired color */
+}

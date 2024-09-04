@@ -79,6 +79,25 @@ for ( let i = 1; i < 65; i++) {
     gameboard.appendChild(square);
 }
 
+function resetSquares() {
+    for (let i = 1; i <= 8; i++){
+        for (let j = 1; j <= 8; j++) {
+            var element = document.getElementById(i + "" + j);
+            if (element.classList.contains("green")) {
+                // Remove the green class
+                element.classList.remove("green");
+
+                // Add previous color class to the square
+                if (element.classList.contains("black_starting")){
+                    element.classList.add("black");
+                } else {
+                    element.classList.add("white");
+                }
+            }
+        }
+    }
+}
+
 // Add the numbers on the left side of the board
 for (i = 8; i>=1; i--) {
     let numbersli = document.createElement("li");
@@ -158,6 +177,10 @@ function set_solution() {
         }
 
         console.log(solution_ids);
+
+        // Before setting the solutions, perform a board reset to prevent hitting the solution
+        // button multiple times and getting weird results.
+        resetSquares();
     
         for (var i = 0; i < solution_ids.length; i++) {
             var element = document.getElementById(solution_ids[i]);
